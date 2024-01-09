@@ -1,0 +1,16 @@
+{
+	"required": true,
+	"package": "fr.paulbrancieq.packstackmemory.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"ResourcePackManagerMixin",
+		"ResourcePackSendS2CPacketMixin"
+	],
+	"client": [
+		"AbstractPackMixin",
+		"ServerResourcePackLoaderMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
