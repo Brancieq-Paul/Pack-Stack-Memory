@@ -1,4 +1,4 @@
-package fr.paulbrancieq.packstackmemory;
+package fr.paulbrancieq.packlistfeatures;
 
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
@@ -11,9 +11,10 @@ import java.util.Map;
 
 public class PackIndexManager {
     private static final File configFolder = FabricLoader.getInstance().getConfigDir().toFile();
-    private static final File modConfigFolder = new File("config/packstackmemory");
+    private static final File modConfigFolder = new File(configFolder, PackListFeaturesMod.MOD_ID);
     private static File packIndexFile;
     private final List<String> packIndex = new ArrayList<>();
+    private static final String[] oldDirectoryNames = {"packstackmemory", "packposmemory"};
 
     public PackIndexManager() {
         generateFoldersAndFiles();
@@ -65,22 +66,29 @@ public class PackIndexManager {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static void generateFoldersAndFiles() {
+        for (String oldDirectoryName : oldDirectoryNames) {
+            File oldDirectory = new File(configFolder, oldDirectoryName);
+            if (oldDirectory.exists()) {
+                PackListFeaturesMod.LOGGER.info("Renaming old config folder");
+                oldDirectory.renameTo(modConfigFolder);
+            }
+        }
         if (!configFolder.exists()) {
-            PackStackMemoryMod.LOGGER.info("Creating new config folder");
+            PackListFeaturesMod.LOGGER.info("Creating new config folder");
             configFolder.mkdir();
         }
         if (!modConfigFolder.exists()) {
-            PackStackMemoryMod.LOGGER.info("Creating new mod config folder");
+            PackListFeaturesMod.LOGGER.info("Creating new mod config folder");
             modConfigFolder.mkdir();
         }
         if (modConfigFolder.isDirectory()) {
             packIndexFile = new File(modConfigFolder, "pack-index.json");
             if (!packIndexFile.exists()) {
-                PackStackMemoryMod.LOGGER.info("Creating new pack index file");
+                PackListFeaturesMod.LOGGER.info("Creating new pack index file");
                 try {
                     packIndexFile.createNewFile();
                 } catch (Exception e) {
-                    PackStackMemoryMod.LOGGER.error("Unexpected error: can't create config file", e);
+                    PackListFeaturesMod.LOGGER.error("Unexpected error: can't create config file", e);
                 }
             } else if (packIndexFile.isDirectory()) {
                 throw new IllegalStateException("'rpp-pack-index.json' must be a file!");
@@ -94,16 +102,16 @@ public class PackIndexManager {
         try {
             JsonArray json = new Gson().fromJson(new FileReader(packIndexFile), JsonArray.class);
             if (json == null) {
-                PackStackMemoryMod.LOGGER.error("Invalid configuration!");
+                PackListFeaturesMod.LOGGER.error("Invalid configuration!");
                 return;
             }
             json.asList().forEach(value -> packIndex.add(value.getAsString()));
         } catch (JsonSyntaxException e) {
-            PackStackMemoryMod.LOGGER.error("Invalid configuration!", e);
+            PackListFeaturesMod.LOGGER.error("Invalid configuration!", e);
         } catch (JsonIOException e) {
-            PackStackMemoryMod.LOGGER.error("Unexpected error with Json reading", e);
+            PackListFeaturesMod.LOGGER.error("Unexpected error with Json reading", e);
         } catch (FileNotFoundException e) {
-            PackStackMemoryMod.LOGGER.error("Unexpected error: config file not found", e);
+            PackListFeaturesMod.LOGGER.error("Unexpected error: config file not found", e);
         }
     }
 

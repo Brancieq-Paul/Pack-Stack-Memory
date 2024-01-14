@@ -1,4 +1,4 @@
-package fr.paulbrancieq.packstackmemory.mixin;
+package fr.paulbrancieq.packlistfeatures.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ServerInfo;

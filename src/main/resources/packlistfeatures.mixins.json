@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "fr.paulbrancieq.packstackmemory.mixin",
+	"package": "fr.paulbrancieq.packlistfeatures.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"ResourcePackManagerMixin",
@@ -8,7 +8,8 @@
 	],
 	"client": [
 		"AbstractPackMixin",
-		"ServerResourcePackLoaderMixin"
+		"ServerResourcePackLoaderMixin",
+		"MixinGameOptions"
 	],
 	"injectors": {
 		"defaultRequire": 1

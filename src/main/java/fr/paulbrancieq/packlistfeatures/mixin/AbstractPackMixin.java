@@ -1,6 +1,6 @@
-package fr.paulbrancieq.packstackmemory.mixin;
+package fr.paulbrancieq.packlistfeatures.mixin;
 
-import fr.paulbrancieq.packstackmemory.PackStackMemoryMod;
+import fr.paulbrancieq.packlistfeatures.PackListFeaturesMod;
 import net.minecraft.resource.ResourcePackProfile;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +28,7 @@ public abstract class AbstractPackMixin {
                 temp.add(profile.getDescription().getString());
             }
             Collections.reverse(temp);
-            PackStackMemoryMod.getInstance().getPackIndexManager().updateIndex(temp);
+            PackListFeaturesMod.getInstance().getPackIndexManager().updateIndex(temp);
         }
     }
 
@@ -38,6 +38,6 @@ public abstract class AbstractPackMixin {
     )
     private void toggle(CallbackInfo in) {
         ResourcePackOrganizer.Pack pack = (ResourcePackOrganizer.Pack) (Object) this;
-        PackStackMemoryMod.toggle(pack, getOppositeList());
+        PackListFeaturesMod.toggle(pack, getOppositeList());
     }
 }

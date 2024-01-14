@@ -1,4 +1,4 @@
-package fr.paulbrancieq.packstackmemory.mixin;
+package fr.paulbrancieq.packlistfeatures.mixin;
 
 import net.minecraft.client.resource.server.ServerResourcePackLoader;
 import org.spongepowered.asm.mixin.Mixin;

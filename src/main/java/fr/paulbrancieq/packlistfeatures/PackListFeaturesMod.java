@@ -1,4 +1,4 @@
-package fr.paulbrancieq.packstackmemory;
+package fr.paulbrancieq.packlistfeatures;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -10,12 +10,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
 
-public class PackStackMemoryMod implements ModInitializer {
-	private static PackStackMemoryMod instance;
+public class PackListFeaturesMod implements ModInitializer {
+	private static PackListFeaturesMod instance;
 
     public static final Logger LOGGER = LoggerFactory.getLogger("rpp");
 
 	private PackIndexManager packIndexManager;
+
+	public static final String MOD_ID = "packlistfeatures";
 
 	@Override
 	public void onInitialize() {
@@ -23,7 +25,7 @@ public class PackStackMemoryMod implements ModInitializer {
 		packIndexManager = new PackIndexManager();
 	}
 
-	public static PackStackMemoryMod getInstance() {
+	public static PackListFeaturesMod getInstance() {
 		return instance;
 	}
 
@@ -39,7 +41,7 @@ public class PackStackMemoryMod implements ModInitializer {
 				map.put(profile.getDescription().getString(), profile);
 			}
 			Collections.reverse(enabledNames);
-			List<ResourcePackProfile> temp = PackStackMemoryMod.getInstance().getPackIndexManager().organizePacks(map, enabledNames);
+			List<ResourcePackProfile> temp = PackListFeaturesMod.getInstance().getPackIndexManager().organizePacks(map, enabledNames);
 			Collections.reverse(temp);
 			oppositeList.clear();
 			oppositeList.addAll(temp);
@@ -54,7 +56,7 @@ public class PackStackMemoryMod implements ModInitializer {
 			map.put(pack.getDescription().getString(), pack);
 			enabledNamesList.add(pack.getDescription().getString());
 		}
-		enabledPacks = new ArrayList<>(PackStackMemoryMod.getInstance().getPackIndexManager().organizePacks(map, enabledNamesList));
+		enabledPacks = new ArrayList<>(PackListFeaturesMod.getInstance().getPackIndexManager().organizePacks(map, enabledNamesList));
 		cir.setReturnValue(enabledPacks);
 	}
 }
