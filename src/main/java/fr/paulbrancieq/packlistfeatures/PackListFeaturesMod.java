@@ -13,14 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.*;
 
 public class PackListFeaturesMod implements ModInitializer {
+	// Mod
+	public static final String MOD_ID = "packlistfeatures";
 	private static PackListFeaturesMod instance;
-
     public static final Logger LOGGER = LoggerFactory.getLogger("rpp");
 
+	// States and memory
 	private PackIndexManager packIndexManager;
-
-	public static final String MOD_ID = "packlistfeatures";
-
 	public static final ThreadLocal<Boolean> needReloadSkip = ThreadLocal.withInitial(() -> false);
 
 	@Override

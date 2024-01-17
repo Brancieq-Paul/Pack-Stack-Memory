@@ -10,7 +10,8 @@
 		"AbstractPackMixin",
 		"ServerResourcePackLoaderMixin",
 		"GameOptionsMixin",
-		"ServerResourcePackManageOnSuccessMixin"
+		"ServerResourcePackManageOnSuccessMixin",
+		"MinecraftClientMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
