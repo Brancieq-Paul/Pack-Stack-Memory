@@ -11,7 +11,8 @@
 		"ServerResourcePackLoaderMixin",
 		"GameOptionsMixin",
 		"ServerResourcePackManageOnSuccessMixin",
-		"MinecraftClientMixin"
+		"MinecraftClientMixin",
+		"ResourcePackOrganizerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
