@@ -9,7 +9,8 @@
 	"client": [
 		"AbstractPackMixin",
 		"ServerResourcePackLoaderMixin",
-		"MixinGameOptions"
+		"MixinGameOptions",
+		"ServerResourcePackManageOnSuccessMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

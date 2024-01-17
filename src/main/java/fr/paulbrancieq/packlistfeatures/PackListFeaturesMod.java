@@ -1,11 +1,14 @@
 package fr.paulbrancieq.packlistfeatures;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
 import net.minecraft.resource.ResourcePackProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
@@ -58,5 +61,26 @@ public class PackListFeaturesMod implements ModInitializer {
 		}
 		enabledPacks = new ArrayList<>(PackListFeaturesMod.getInstance().getPackIndexManager().organizePacks(map, enabledNamesList));
 		cir.setReturnValue(enabledPacks);
+	}
+
+	public static void onServerResourcePackLoadSuccess(CallbackInfo ci) {
+		// Should be a call to refreshResourcePacks() but we don't need the reload of resources in the end,
+		// so this is just a copy of the method with the reload removed.
+		// MinecraftClient.getInstance().options.refreshResourcePacks(MinecraftClient.getInstance().getResourcePackManager());
+		List<String> list = ImmutableList.copyOf(MinecraftClient.getInstance().options.resourcePacks);
+		MinecraftClient.getInstance().options.resourcePacks.clear();
+		MinecraftClient.getInstance().options.incompatibleResourcePacks.clear();
+		Iterator var3 = MinecraftClient.getInstance().getResourcePackManager().getEnabledProfiles().iterator();
+
+		while(var3.hasNext()) {
+			ResourcePackProfile resourcePackProfile = (ResourcePackProfile)var3.next();
+			if (!resourcePackProfile.isPinned()) {
+				MinecraftClient.getInstance().options.resourcePacks.add(resourcePackProfile.getName());
+				if (!resourcePackProfile.getCompatibility().isCompatible()) {
+					MinecraftClient.getInstance().options.incompatibleResourcePacks.add(resourcePackProfile.getName());
+				}
+			}
+		}
+		MinecraftClient.getInstance().options.write();
 	}
 }
