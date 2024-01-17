@@ -2,7 +2,6 @@ package fr.paulbrancieq.packlistfeatures.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.resource.server.ServerResourcePackLoader;
 import net.minecraft.resource.ResourcePackManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
-    @Shadow public abstract CompletableFuture<Void> reloadResources(boolean force, MinecraftClient.LoadingContext loadingContext);
+    @Shadow protected abstract CompletableFuture<Void> reloadResources(boolean force, MinecraftClient.LoadingContext loadingContext);
 
     @Shadow @Final public GameOptions options;
 
