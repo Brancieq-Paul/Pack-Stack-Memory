@@ -1,6 +1,5 @@
 package fr.paulbrancieq.packlistfeatures;
 
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.client.MinecraftClient;
@@ -21,6 +20,8 @@ public class PackListFeaturesMod implements ModInitializer {
 	private PackIndexManager packIndexManager;
 
 	public static final String MOD_ID = "packlistfeatures";
+
+	public static final ThreadLocal<Boolean> needReloadSkip = ThreadLocal.withInitial(() -> false);
 
 	@Override
 	public void onInitialize() {
@@ -64,23 +65,8 @@ public class PackListFeaturesMod implements ModInitializer {
 	}
 
 	public static void onServerResourcePackLoadSuccess(CallbackInfo ci) {
-		// Should be a call to refreshResourcePacks() but we don't need the reload of resources in the end,
-		// so this is just a copy of the method with the reload removed.
-		// MinecraftClient.getInstance().options.refreshResourcePacks(MinecraftClient.getInstance().getResourcePackManager());
-		List<String> list = ImmutableList.copyOf(MinecraftClient.getInstance().options.resourcePacks);
-		MinecraftClient.getInstance().options.resourcePacks.clear();
-		MinecraftClient.getInstance().options.incompatibleResourcePacks.clear();
-		Iterator var3 = MinecraftClient.getInstance().getResourcePackManager().getEnabledProfiles().iterator();
-
-		while(var3.hasNext()) {
-			ResourcePackProfile resourcePackProfile = (ResourcePackProfile)var3.next();
-			if (!resourcePackProfile.isPinned()) {
-				MinecraftClient.getInstance().options.resourcePacks.add(resourcePackProfile.getName());
-				if (!resourcePackProfile.getCompatibility().isCompatible()) {
-					MinecraftClient.getInstance().options.incompatibleResourcePacks.add(resourcePackProfile.getName());
-				}
-			}
-		}
-		MinecraftClient.getInstance().options.write();
+		needReloadSkip.set(true);
+		MinecraftClient.getInstance().options.refreshResourcePacks(MinecraftClient.getInstance().getResourcePackManager());
+		needReloadSkip.set(false);
 	}
 }
