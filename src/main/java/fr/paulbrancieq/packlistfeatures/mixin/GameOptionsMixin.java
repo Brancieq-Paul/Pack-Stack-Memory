@@ -2,7 +2,6 @@ package fr.paulbrancieq.packlistfeatures.mixin;
 
 import fr.paulbrancieq.packlistfeatures.PackListFeaturesMod;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourcePackManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
