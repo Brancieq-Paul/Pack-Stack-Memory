@@ -1,9 +1,7 @@
 package fr.paulbrancieq.packlistfeatures.mixin;
 
 import fr.paulbrancieq.packlistfeatures.PackListFeaturesMod;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
-import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.ResourcePackProfile;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
