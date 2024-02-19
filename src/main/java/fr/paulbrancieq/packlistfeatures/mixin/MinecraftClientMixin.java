@@ -41,8 +41,7 @@ public abstract class MinecraftClientMixin {
 
     @Redirect(method = "onResourceReloadFailure",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/MinecraftClient;reloadResources(ZLnet/minecraft/client/MinecraftClient$LoadingContext;)Ljava/util/concurrent/CompletableFuture;",
-                    remap = false))
+                    target = "Lnet/minecraft/client/MinecraftClient;reloadResources(ZLnet/minecraft/client/MinecraftClient$LoadingContext;)Ljava/util/concurrent/CompletableFuture;"))
     private CompletableFuture<Void> redirectReloadResources(MinecraftClient instance, boolean value, MinecraftClient.LoadingContext loadingContext) {
         return reloadResources(false, loadingContext);
     }
