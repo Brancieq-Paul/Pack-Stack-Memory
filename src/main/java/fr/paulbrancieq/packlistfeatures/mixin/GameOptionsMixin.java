@@ -44,8 +44,8 @@ public abstract class GameOptionsMixin {
     @Redirect(method = "addResourcePackProfilesToManager", at = @At(value = "INVOKE", target = "Ljava/util/Iterator;remove()V", ordinal = 1))
     private void onIteratorRemove(Iterator<ResourcePackProfile> iterator, @Local ResourcePackProfile resourcePackProfile, @Local Set<String> set) {
         PackListFeaturesMod.LOGGER.warn("Adding newly incompatible resource pack to the incompatible list");
-        incompatibleResourcePacks.add(resourcePackProfile.getName());
-        set.add(resourcePackProfile.getName());
+        incompatibleResourcePacks.add(resourcePackProfile.getId());
+        set.add(resourcePackProfile.getId());
         MinecraftClient.getInstance().options.write();
     }
 }
