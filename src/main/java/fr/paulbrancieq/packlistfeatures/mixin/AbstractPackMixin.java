@@ -25,7 +25,7 @@ public abstract class AbstractPackMixin {
         if (pack.isEnabled()) {
             List<String> temp = new ArrayList<>();
             for (ResourcePackProfile profile : getCurrentList()) {
-                temp.add(profile.getDescription().getString());
+                temp.add(profile.getId());
             }
             Collections.reverse(temp);
             PackListFeaturesMod.getInstance().getPackIndexManager().updateIndex(temp);

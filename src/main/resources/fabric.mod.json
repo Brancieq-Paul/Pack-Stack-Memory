@@ -5,7 +5,7 @@
 	"name": "Pack Position Memory",
 	"description": "Several quality of life features and bug fixes regarding the resource pack list",
 	"authors": [
-		"Paul Brancieq"
+		"Raconteur"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/project/packlistfeatures",
@@ -24,8 +24,8 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.3",
-		"minecraft": ">=1.20.4",
-		"java": ">=17",
+		"minecraft": ">=1.21 <1.21.2",
+		"java": ">=21",
 		"fabric-api": "*"
 	},
 	"suggests": {

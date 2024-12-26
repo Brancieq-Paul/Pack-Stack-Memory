@@ -21,8 +21,8 @@ public abstract class ResourcePackOrganizerMixin {
     private void constructor(CallbackInfo ci) {
         Map<String, ResourcePackProfile> map = new HashMap<>();
         List<String> nameList = new ArrayList<>();
-        enabledPacks.forEach(pack -> map.put(pack.getDescription().getString(), pack));
-        enabledPacks.forEach(pack -> nameList.add(pack.getDescription().getString()));
+        enabledPacks.forEach(pack -> map.put(pack.getId(), pack));
+        enabledPacks.forEach(pack -> nameList.add(pack.getId()));
         Collections.reverse(nameList);
         List<ResourcePackProfile> temp = PackListFeaturesMod.getInstance().getPackIndexManager().organizePacks(map, nameList);
         Collections.reverse(temp);

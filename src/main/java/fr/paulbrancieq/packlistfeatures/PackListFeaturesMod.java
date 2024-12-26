@@ -22,6 +22,8 @@ public class PackListFeaturesMod implements ModInitializer {
 	private PackIndexManager packIndexManager;
 	public static final ThreadLocal<Boolean> needReloadSkip = ThreadLocal.withInitial(() -> false);
 
+	public static boolean isFirstResourceLoad = true;
+
 	@Override
 	public void onInitialize() {
 		instance = this;
@@ -40,8 +42,8 @@ public class PackListFeaturesMod implements ModInitializer {
 			List<String> enabledNames = new ArrayList<>();
 			Map<String, ResourcePackProfile> map = new HashMap<>();
 			for (ResourcePackProfile profile : oppositeList) {
-				enabledNames.add(profile.getDescription().getString());
-				map.put(profile.getDescription().getString(), profile);
+				enabledNames.add(profile.getId());
+				map.put(profile.getId(), profile);
 			}
 			Collections.reverse(enabledNames);
 			List<ResourcePackProfile> temp = PackListFeaturesMod.getInstance().getPackIndexManager().organizePacks(map, enabledNames);
@@ -56,8 +58,8 @@ public class PackListFeaturesMod implements ModInitializer {
 		ArrayList<String> enabledNamesList = new ArrayList<>();
 		Map<String, ResourcePackProfile> map = new HashMap<>();
 		for (ResourcePackProfile pack : enabledPacks) {
-			map.put(pack.getDescription().getString(), pack);
-			enabledNamesList.add(pack.getDescription().getString());
+			map.put(pack.getId(), pack);
+			enabledNamesList.add(pack.getId());
 		}
 		enabledPacks = new ArrayList<>(PackListFeaturesMod.getInstance().getPackIndexManager().organizePacks(map, enabledNamesList));
 		cir.setReturnValue(enabledPacks);
@@ -67,5 +69,13 @@ public class PackListFeaturesMod implements ModInitializer {
 		needReloadSkip.set(true);
 		MinecraftClient.getInstance().options.refreshResourcePacks(MinecraftClient.getInstance().getResourcePackManager());
 		needReloadSkip.set(false);
+	}
+
+	public static boolean isFirstResourceLoadToggle() {
+		if (isFirstResourceLoad) {
+			isFirstResourceLoad = false;
+			return true;
+		}
+		return false;
 	}
 }
